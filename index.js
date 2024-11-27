@@ -73,7 +73,17 @@ app.post("/login", (req, res) => {
         });
     });
 });
-
+app.post("/Customerform",(req,res)=>{
+    const sql="Insert into customerinfo (`customerid`, `customername`, `customerphoneno`) VALUES (?,?,?)";
+    db.query(sql, [ req.body.customerid, req.body.customername,req.body.customerphoneno], (err, result) => {
+        if (err) {
+            console.log("Database error:", err);
+            return res.status(500).json({ error: "Database error" });
+        } else {
+            return res.status(200).json({ message: "Customer added successfully" });
+        }
+    });
+});
 
 app.listen(8081, () => {
     console.log("Server running on http://localhost:8081");
